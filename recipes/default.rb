@@ -20,8 +20,11 @@ end
 
 =end
 
+include_recipe "runit"
+runit_service "ioharvester"
+runit_service "ioserver"
 
-
+=begin
 execute "restart_harvester" do
   command "sudo supervisorctl restart harvester_server:"
   action :nothing
@@ -58,6 +61,7 @@ template "/home/ubuntu/.log.io/harvester.conf" do
   mode "0755"
   notifies :run, "execute[restart_harvester]"
 end
+=end
 
 =begin
 uwsgi_port=28777
