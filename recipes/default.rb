@@ -1,7 +1,7 @@
 
 
 bash "nodejs_log-io" do
-    user "ubuntu"
+    user "root"
     code <<-EOH
       sudo npm install -g log.io --user "root"
       touch /var/chef/cache/logio.lock
