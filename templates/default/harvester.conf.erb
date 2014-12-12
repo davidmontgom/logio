@@ -8,8 +8,10 @@ exports.config = {
 	      "/tmp/supervisor_<%="#{role}"%>.err"
 	],
 	<% end %>
-    gitservice: [
-      "/tmp/supervisor_git_service.log",
+    gitservicelog: [
+      "/tmp/supervisor_git_service.log"
+    ],
+    gitserviceerr: [
       "/tmp/supervisor_git_service.err"
     ]
   },
