@@ -17,12 +17,15 @@ cookbook_file "/var/logio.sh" do
   mode 0700
 end
 
+
+role_list_hc = node['monitor']['role_list_hc'] 
 template "/root/.log.io/harvester.conf" do
   path "/root/.log.io/harvester.conf"
   source "harvester.conf.erb"
   owner "root"
   group "root"
   mode "0644"
+  variables :role_list_hc => role_list_hc
   #notifies :run, "execute[restart_harvester]"
 end
 

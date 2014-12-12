@@ -2,6 +2,12 @@
 exports.config = {
   nodeName: "application_server",
   logStreams: {
+    <% @role_list_hc.each do |role| %>
+	hc#{role}: [
+	      "tmp/supervisor_<%="#{role}"%>.log",
+	      "tmp/supervisor_<%="#{role}"%>.err"
+	],
+	<% end %>
     gitservice: [
       "/tmp/supervisor_git_service.log",
       "/tmp/supervisor_git_service.err"
@@ -12,3 +18,5 @@ exports.config = {
     port: 28777
   }
 }
+
+
