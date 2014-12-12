@@ -20,11 +20,12 @@ end
 
 =end
 
+=begin
 include_recipe "runit"
 runit_service "ioharvester"
 runit_service "ioserver"
 
-=begin
+
 execute "restart_harvester" do
   command "sudo supervisorctl restart harvester_server:"
   action :nothing
