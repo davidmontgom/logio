@@ -1,5 +1,13 @@
-
 #http://www.tecmint.com/linux-server-log-monitoring-with-log-io/
+data_bag("my_data_bag")
+db = data_bag_item("my_data_bag", "my")
+datacenter = node.name.split('-')[0]
+server_type = node.name.split('-')[1]
+location = node.name.split('-')[2]
+
+
+username = db[node.chef_environment][location]['monitor']['admin']['username']
+password = db[node.chef_environment][location]['monitor']['admin']['password']
 
 bash "nodejs_log-io" do
     user "root"
@@ -26,6 +34,16 @@ template "/root/.log.io/harvester.conf" do
   group "root"
   mode "0644"
   variables :role_list_hc => role_list_hc
+  #notifies :run, "execute[restart_harvester]"
+end
+
+template "/root/.log.io/web_server.conf" do
+  path "/root/.log.io/web_server.conf"
+  source "web_server.conf.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables :username => "#{username}",:password => "#{password}"
   #notifies :run, "execute[restart_harvester]"
 end
 
