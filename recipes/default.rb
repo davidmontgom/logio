@@ -59,7 +59,7 @@ template "/home/ubuntu/.log.io/harvester.conf" do
   notifies :run, "execute[restart_harvester]"
 end
 
-
+=begin
 uwsgi_port=28777
 nginx_port=84
 
@@ -77,5 +77,6 @@ link "/etc/nginx/sites-enabled/logio.nginx.conf" do
   to "/etc/nginx/sites-available/logio.nginx.conf"
 end
 service "nginx"
+=end
 
 
