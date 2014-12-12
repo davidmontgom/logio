@@ -1,0 +1,14 @@
+
+exports.config = {
+  nodeName: "application_server",
+  logStreams: {
+    git-service: [
+      "/tmp/supervisor_git_service.log",
+      "/tmp/supervisor_git_service.err"
+    ]
+  },
+  server: {
+    host: '0.0.0.0',
+    port: 28777
+  }
+}

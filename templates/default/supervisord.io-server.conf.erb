@@ -1,0 +1,27 @@
+[program:io-server]
+command = /usr/bin/node /usr/bin/log.io-server
+
+process_name=%(program_name)s
+autostart=true
+autorestart=true
+stopsignal=KILL
+stopasgroup = true
+killasgroup = true
+
+
+stdout_logfile=/tmp/supervisor_io-server.log
+stdout_logfile_maxbytes=100MB
+stdout_logfile_backups=10
+
+stderr_logfile = /tmp/supervisor_io-server.err
+stderr_logfile_maxbytes=10MB
+stderr_logfile_backups=10
+
+[group:io-server_server]
+programs=io-server
+
+
+
+
+
+
