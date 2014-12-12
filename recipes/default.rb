@@ -38,6 +38,7 @@ end
 
 =end
 
+=begin
 
 include_recipe "runit"
 runit_service "ioharvester"
@@ -70,6 +71,7 @@ template "/etc/supervisor/conf.d/io-harvester.conf" do
   mode "0755"
   notifies :run, "execute[restart_harvester]"
 end
+=end
 
 =begin
 uwsgi_port=28777

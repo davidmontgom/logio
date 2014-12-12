@@ -29,4 +29,4 @@ status
                 *)
 echo "Usage: start|stop|status"
         ;;
-Esac
+esac
