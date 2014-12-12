@@ -4,8 +4,8 @@ exports.config = {
   logStreams: {
     <% @role_list_hc.each do |role| %>
 	hc#{role}: [
-	      "tmp/supervisor_<%="#{role}"%>.log",
-	      "tmp/supervisor_<%="#{role}"%>.err"
+	      "/tmp/supervisor_<%="#{role}"%>.log",
+	      "/tmp/supervisor_<%="#{role}"%>.err"
 	],
 	<% end %>
     gitservice: [
