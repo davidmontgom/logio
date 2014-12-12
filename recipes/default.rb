@@ -3,12 +3,29 @@
 bash "nodejs_log-io" do
     user "ubuntu"
     code <<-EOH
-      sudo npm install -g log.io --user "ubuntu"
+      sudo npm install -g log.io --user "root"
       touch /var/chef/cache/logio.lock
     EOH
     action :run
     not_if {File.exists?("/var/chef/cache/logio.lock")}
 end
+
+
+cookbook_file "/var/logio.sh" do
+  source "logio.sh"
+  mode 0700
+end
+
+template "/root/.log.io/harvester.conf" do
+  path "/root/.log.io/harvester.conf"
+  source "harvester.conf.erb"
+  owner "ubuntu"
+  group "ubuntu"
+  mode "0644"
+  #notifies :run, "execute[restart_harvester]"
+end
+
+
 
 =begin
 /usr/bin/log.io-harvester
@@ -20,7 +37,7 @@ end
 
 =end
 
-=begin
+
 include_recipe "runit"
 runit_service "ioharvester"
 runit_service "ioserver"
@@ -52,17 +69,6 @@ template "/etc/supervisor/conf.d/io-harvester.conf" do
   mode "0755"
   notifies :run, "execute[restart_harvester]"
 end
-
-#/usr/lib/node_modules/log.io/conf/harvester.conf
-template "/home/ubuntu/.log.io/harvester.conf" do
-  path "/home/ubuntu/.log.io/harvester.conf"
-  source "harvester.conf.erb"
-  owner "ubuntu"
-  group "ubuntu"
-  mode "0755"
-  notifies :run, "execute[restart_harvester]"
-end
-=end
 
 =begin
 uwsgi_port=28777
