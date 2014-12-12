@@ -50,8 +50,8 @@ template "/etc/supervisor/conf.d/io-harvester.conf" do
 end
 
 #/usr/lib/node_modules/log.io/conf/harvester.conf
-template "/root/.log.io/harvester.conf" do
-  path "/root/.log.io/harvester.conf"
+template "/home/ubuntu/.log.io/harvester.conf" do
+  path "/home/ubuntu/.log.io/harvester.conf"
   source "harvester.conf.erb"
   owner "root"
   group "root"
