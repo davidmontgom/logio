@@ -1,4 +1,5 @@
 
+#http://www.tecmint.com/linux-server-log-monitoring-with-log-io/
 
 bash "nodejs_log-io" do
     user "root"
@@ -19,8 +20,8 @@ end
 template "/root/.log.io/harvester.conf" do
   path "/root/.log.io/harvester.conf"
   source "harvester.conf.erb"
-  owner "ubuntu"
-  group "ubuntu"
+  owner "root"
+  group "root"
   mode "0644"
   #notifies :run, "execute[restart_harvester]"
 end
