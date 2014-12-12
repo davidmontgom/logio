@@ -53,8 +53,8 @@ end
 template "/home/ubuntu/.log.io/harvester.conf" do
   path "/home/ubuntu/.log.io/harvester.conf"
   source "harvester.conf.erb"
-  owner "root"
-  group "root"
+  owner "ubuntu"
+  group "ubuntu"
   mode "0755"
   notifies :run, "execute[restart_harvester]"
 end
