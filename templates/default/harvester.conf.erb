@@ -3,7 +3,7 @@ exports.config = {
   nodeName: "application_server",
   logStreams: {
     <% @role_list_hc.each do |role| %>
-	hc#{role}: [
+	hc<%="#{role}"%>: [
 	      "/tmp/supervisor_<%="#{role}"%>.log",
 	      "/tmp/supervisor_<%="#{role}"%>.err"
 	],
