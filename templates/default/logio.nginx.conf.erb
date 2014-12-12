@@ -1,105 +1,18 @@
-
 server {
-	        listen <%=@nginx_port%>;
-	        listen [::]:<%=@nginx_port%> ipv6only=on default_server;
-	        server_name 127.0.0.1;
-	        root /opt/graphite/webapp;
+        listen <%=@nginx_port%>;
+        listen [::]:<%=@nginx_port%> ipv6only=on default_server;
+        server_name 127.0.0.1;
+        location = /favicon.ico {
+               log_not_found off;
+		}
 
-        
-           location = /favicon.ico {
-			log_not_found off;
-		   }
-
-		   location /media/ {
-			# this changes depending on your python version
-			root /usr/local/lib/python2.7/dist-packages/django/contrib/admin;
-			}
- 
-		   location / {
-		   			 auth_basic "Restricted";
-                     auth_basic_user_file /etc/nginx/.htpasswd;
-		   }
-		   location /graphite/ {
-					   gzip off;
+       location / {
                        include uwsgi_params;
+                       uwsgi_buffering off;
+                       #uwsgi_param X-Real-IP $remote_addr;
+                       #uwsgi_param Host $http_host;
+                       #uwsgi_pass uwsgi_frontend;
                        uwsgi_pass 127.0.0.1:<%=@uwsgi_port%>;
-                       auth_basic "Restricted";
-                       auth_basic_user_file /etc/nginx/.htpasswd;
-           }
-           location /content/ {
-                    alias /opt/graphite/webapp/content;
-                    gzip off;
-                    include uwsgi_params;
-                    uwsgi_pass 127.0.0.1:<%=@uwsgi_port%>;
-                    auth_basic "Restricted";
-                    auth_basic_user_file /etc/nginx/.htpasswd;
-            }
-           location /metrics/ {
-                    alias /opt/graphite/webapp/graphite/metrics;
-                    gzip off;
-                    include uwsgi_params;
-                    uwsgi_pass 127.0.0.1:<%=@uwsgi_port%>;
-                    auth_basic "Restricted";
-                    auth_basic_user_file /etc/nginx/.htpasswd;
-            }
-           location /dashboard/ {
-                    alias /opt/graphite/webapp/graphite/dashboard/;
-                    gzip off;
-                    include uwsgi_params;
-                    uwsgi_pass 127.0.0.1:<%=@uwsgi_port%>;
-                    auth_basic "Restricted";
-                    auth_basic_user_file /etc/nginx/.htpasswd;
-            }
-           location /render/ {
-                    alias /opt/graphite/webapp/graphite/render;
-                    gzip off;
-                    include uwsgi_params;
-                    uwsgi_pass 127.0.0.1:<%=@uwsgi_port%>;
-                    auth_basic "Restricted";
-                    auth_basic_user_file /etc/nginx/.htpasswd;
-            }
-           location /browser/ {
-                    alias /opt/graphite/webapp/graphite/browser;
-                    gzip off;
-                    include uwsgi_params;
-                    uwsgi_pass 127.0.0.1:<%=@uwsgi_port%>;
-                    auth_basic "Restricted";
-                    auth_basic_user_file /etc/nginx/.htpasswd;
-            }
-           location /composer/ {
-                    alias /opt/graphite/webapp/graphite/composer;
-                    gzip off;
-                    include uwsgi_params;
-                    uwsgi_pass 127.0.0.1:<%=@uwsgi_port%>;
-                    auth_basic "Restricted";
-                    auth_basic_user_file /etc/nginx/.htpasswd;
-            }
-           location /admin/ {
-                    gzip off;
-                    include uwsgi_params;
-                    uwsgi_pass 127.0.0.1:<%=@uwsgi_port%>;
-                    auth_basic "Restricted";
-                    auth_basic_user_file /etc/nginx/.htpasswd;
-            }
-            
-           
-           #location /riemann/ {
-			#proxy_pass http://127.0.0.1:4567/;
-			#proxy_set_header Host $host;
-		   #}
-
-       
-         location ~ ^/media/ {
-            root /usr/local/lib/python2.7/dist-packages/django/contrib/admin/media/;
-            gzip_static on; # to serve pre-gzipped version
-            expires max;
-            add_header Cache-Control public;
-            }
-            
-            
-  
+       }
 
 }
-
- 
-    
