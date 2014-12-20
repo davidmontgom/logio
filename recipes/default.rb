@@ -9,6 +9,14 @@ location = node.name.split('-')[2]
 username = db[node.chef_environment][location]['monitor']['admin']['username']
 password = db[node.chef_environment][location]['monitor']['admin']['password']
 
+
+directory "/root/.log.io" do
+  mode "0666"
+  recursive true
+  action :create
+end
+
+
 bash "nodejs_log-io" do
     user "root"
     code <<-EOH
