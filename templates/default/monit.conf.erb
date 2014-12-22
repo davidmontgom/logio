@@ -2,13 +2,13 @@
 
 check process logio-server
 	with matching "node /usr/bin/log.io-server"
-	  start program = "sh /var/logio.sh start"
-	  stop program = "sh /var/logio.sh stop"
+	  start program = "/bin/sh /var/logio.sh start"
+	  stop program = "/bin/sh /var/logio.sh stop"
 	  
 	  
 check process logio-harvester
 	with matching "node /usr/bin/log.io-harvester"
-	  start program = "sh /var/logio.sh start"
-	  stop program = "sh /var/logio.sh stop"
+	  start program = "/bin/sh /var/logio.sh start"
+	  stop program = "/bin/sh /var/logio.sh stop"
   
   
