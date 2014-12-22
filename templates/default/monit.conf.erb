@@ -1,0 +1,14 @@
+
+
+check process logio-server
+	with matching "/usr/bin/log.io-server"
+	  start program = "sh /var/logio.sh start"
+	  stop program = "sh /var/logio.sh stop"
+	  
+	  
+check process logio-harvester
+	with matching "/usr/bin/log.io-harvester"
+	  start program = "sh /var/logio.sh start"
+	  stop program = "sh /var/logio.sh stop"
+  
+  
