@@ -10,6 +10,29 @@ username = db[node.chef_environment][location]['monitor']['admin']['username']
 password = db[node.chef_environment][location]['monitor']['admin']['password']
 
 
+bash "nodejs_bash_update" do
+    user "root"
+    code <<-EOH
+      curl -sL https://deb.nodesource.com/setup | sudo bash -
+      touch /var/chef/cache/nodejs.lock
+    EOH
+    action :run
+    not_if {File.exists?("/var/chef/cache/nodejs.lock")}
+end
+  
+
+package "nodejs" do
+  action :install
+end
+
+
+
+
+
+
+
+
+
 directory "/root/.log.io" do
   mode "0666"
   recursive true
